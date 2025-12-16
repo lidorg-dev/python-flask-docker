@@ -23,4 +23,4 @@ jobs:
         docker push lidorlg/lidor-python-flask:$(date +%F)-${{ github.run_number }}
         docker tag lidorlg/lidor-python-flask:$(date +%F)-${{ github.run_number }} lidorlg/lidor-python-flask:latest
         docker push lidorlg/lidor-python-flask:latest
-        echo "the variable is:  ${{ env.COURSE }}"
+        echo "the variable is:  ${{ vars.COURSE }}"
