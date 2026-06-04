@@ -11,6 +11,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    environment: DEV
 
     steps:
     - name: checkout code
@@ -19,12 +20,14 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag lidorlg/lidor-python-flask:$(date +%F)-${{ github.run_number }}
       
-    # - name: docker login
-    #   run: docker login -u ${{ secrets.DOCKER_HUB_USER }} -p ${{ secrets.DOCKER_HUB_PASS }}
+    - name: docker login
+      run: docker login -u ${{ secrets.DOCKER_HUB_USER }} -p ${{ secrets.DOCKER_HUB_PASS }}
       
-    # - name: docker push
-    #   run: |
-    #     docker push lidorlg/lidor-python-flask:$(date +%F)-${{ github.run_number }}
-    #     docker tag lidorlg/lidor-python-flask:$(date +%F)-${{ github.run_number }} lidorlg/lidor-python-flask:latest
-    #     docker push lidorlg/lidor-python-flask:latest
-    #     echo "the variable is:  ${{ vars.COURSE }}"
+    - name: docker push
+      run: |
+        docker push lidorlg/lidor-python-flask:$(date +%F)-${{ github.run_number }}
+        docker tag lidorlg/lidor-python-flask:$(date +%F)-${{ github.run_number }} lidorlg/lidor-python-flask:latest
+        docker push lidorlg/lidor-python-flask:latest
+        echo "the variable is:  ${{ vars.COURSE }}"
+        echo " The Secret of DB in DEV is : ${{ secrets.DB }}"
+        
